@@ -214,6 +214,12 @@ public class AlertController: UIViewController {
         super.viewDidLoad()
         self.listenForKeyboardChanges()
         self.configureAlertView()
+        
+        self.alertView.closeButton.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+    }
+    
+    func closeAction(){
+        self.dismiss(animated: true, completion: nil)
     }
 
     public override func viewDidLayoutSubviews() {
@@ -279,7 +285,7 @@ public class AlertController: UIViewController {
 
     private func createViewConstraints() {
         let margins = self.visualStyle.margins
-
+        
         switch self.preferredStyle {
             case .actionSheet:
                 let bounds = self.presentingViewController?.view.bounds ?? self.view.bounds

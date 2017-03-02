@@ -78,6 +78,11 @@ class AlertControllerView: UIView, AlertControllerViewRepresentable {
     @IBOutlet var actionsCollectionView: ActionsCollectionView! = ActionsCollectionView() {
         didSet { self.actionsCollectionView.translatesAutoresizingMaskIntoConstraints = false }
     }
+    
+    @IBOutlet var closeButton: UIButton! = UIButton() {
+        didSet { self.closeButton.translatesAutoresizingMaskIntoConstraints = false }
+    }
+
 
     @IBOutlet var contentView: UIView! = UIView()
 

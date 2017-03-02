@@ -3,6 +3,7 @@ import UIKit
 @objc(SDCAlertVisualStyle)
 open class AlertVisualStyle: NSObject {
 
+    public var closeImage: UIImage?
     /// The width of the alert. A value of 1 or below is interpreted as a percentage of the width of the view
     /// controller that presents the alert.
     public var width: CGFloat

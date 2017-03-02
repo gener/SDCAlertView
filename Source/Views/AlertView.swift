@@ -22,6 +22,7 @@ class AlertView: AlertControllerView {
         let possibleElements: [UIView?] = [
             self.titleLabel,
             self.messageLabel,
+            self.closeButton,
             self.textFieldsViewController?.view,
             self.contentView.subviews.count > 0 ? self.contentView : nil,
         ]
@@ -42,6 +43,8 @@ class AlertView: AlertControllerView {
         self.init(frame: .zero)
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         self.messageLabel.font = UIFont.systemFont(ofSize: 13)
+        self.closeButton.contentMode = .center
+        
     }
 
     override func prepareLayout() {
@@ -96,6 +99,7 @@ class AlertView: AlertControllerView {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.visualStyle.cornerRadius
         self.textFieldsViewController?.visualStyle = self.visualStyle
+        self.closeButton.setImage(self.visualStyle.closeImage, for: .normal)
     }
 
     override var intrinsicContentSize: CGSize {
@@ -112,6 +116,37 @@ class AlertView: AlertControllerView {
         self.createCustomContentViewConstraints()
         self.createCollectionViewConstraints()
         self.createScrollViewConstraints()
+        self.createCloseButtonConstraints()
+    }
+    
+    private func createCloseButtonConstraints() {
+        self.addConstraints(
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "H:[button(32)]",
+                options: NSLayoutFormatOptions(rawValue: 0),
+                metrics: nil,
+                views: ["button": self.closeButton]
+            )
+        )
+        
+        self.addConstraints(
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|-[button(32)]",
+                options: NSLayoutFormatOptions(rawValue: 0),
+                metrics: nil,
+                views: ["button": self.closeButton]
+            )
+        )
+        let contentPadding = self.visualStyle.contentPadding
+        self.addConstraint(NSLayoutConstraint(item: self.closeButton,
+                                              attribute: .right,
+                                              relatedBy: .equal,
+                                              toItem: self.titleLabel,
+                                              attribute: .right,
+                                              multiplier: 1,
+                                              constant: contentPadding.right / 2)
+        )
+        
     }
 
     private func createTitleLabelConstraints() {
