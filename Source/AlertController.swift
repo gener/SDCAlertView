@@ -29,6 +29,8 @@ public enum ActionLayout: Int {
 
 @objc(SDCAlertController)
 public class AlertController: UIViewController {
+    
+    public var identifier: String?
 
     private lazy var assignResponder: () -> Bool = { [weak self] _ in
         self?.textFields?.first?.becomeFirstResponder() ?? false
@@ -196,6 +198,9 @@ public class AlertController: UIViewController {
     @objc(presentAnimated:completion:)
     public func present(animated: Bool = true, completion: (() -> Void)? = nil) {
         let topViewController = UIViewController.topViewController()
+        if self.identifier != nil, let controller = topViewController as? AlertController, self.identifier == controller.identifier {
+            return
+        }
         topViewController?.present(self, animated: animated, completion: completion)
     }
 
