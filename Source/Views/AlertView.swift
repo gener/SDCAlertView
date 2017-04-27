@@ -100,6 +100,7 @@ class AlertView: AlertControllerView {
         self.layer.cornerRadius = self.visualStyle.cornerRadius
         self.textFieldsViewController?.visualStyle = self.visualStyle
         self.closeButton.setImage(self.visualStyle.closeImage, for: .normal)
+        self.closeButton.tintColor = self.visualStyle.closeTintColor
     }
 
     override var intrinsicContentSize: CGSize {
